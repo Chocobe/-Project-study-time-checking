@@ -1,27 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import Router from "./router/router";
+
+import { BrowserRouter, Link } from "react-router-dom";
+
+import './App.scss';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Hello Chocobe
-        </a>
+    <BrowserRouter>
+      <div className="app">
+        {/* TODO: <Menu /> 컴포넌트 만들기 */}
+        <nav className="app-menu">
+          <Link className="app-menu-item" to="/">Main</Link>
+          |
+          <Link className="app-menu-item" to="/author">Author</Link>
+        </nav>
 
-        <h1>Study Time Checking Project</h1>
-      </header>
-    </div>
+        <div className="app-content">
+          <Router />
+        </div>
+      </div>
+
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
