@@ -2,6 +2,10 @@ import React, {
   useState,
 } from "react";
 
+import api, {
+  commonApi,
+} from "@/api";
+
 import "./AuthorLayout.scss";
 
 const AuthorLayout = () => {
@@ -19,20 +23,39 @@ const AuthorLayout = () => {
     });
   };
 
-  const login = () => {
-    alert(`로그인 - Email: ${userInfo.email}, Pw: ${userInfo.password}`);
-    setUserInfo({
-      email: "",
-      password: "",
-    });
+  const login = async () => {
+    try {
+      const { email, password } = userInfo;
+
+      const { data } = await commonApi.login(email, password);
+      const {
+        params: {
+          email: user,
+          token,
+        },
+      } = data;
+
+      localStorage.setItem("token", token + ` ${user}`)
+      sessionStorage.setItem("user", JSON.stringify(user));
+    } catch({ message }) {
+      console.error(`[로그인 실패]: ${message}`);
+    }
   };
+
+  const onClickTokenTest = () => {
+    try {
+      api.hello();
+    } catch(e) {
+      console.log(e);
+    }
+  }
 
   return (
     <div className="authorLayout">
       {/* 로그인 Child Route */}
       <main className="authorLayout-main">
         <h1 className="authorLayout-main-title">
-          로그인
+          로그인 {process.env.REACT_APP_MY_VAR}
         </h1>
 
         <div className="authorLayout-main-form">
@@ -79,6 +102,13 @@ const AuthorLayout = () => {
               onClick={login}
             >
               로그인
+            </button>
+
+            <button
+              className="authorLayout-main-form-actionWrapper-button"
+              onClick={onClickTokenTest}
+            >
+              API Token 테스트
             </button>
           </div>
         </div>
