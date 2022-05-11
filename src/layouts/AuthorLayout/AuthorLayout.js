@@ -35,8 +35,10 @@ const AuthorLayout = () => {
         },
       } = data;
 
-      localStorage.setItem("token", token + ` ${user}`)
+      localStorage.setItem("token", token)
       sessionStorage.setItem("user", JSON.stringify(user));
+
+      alert(`로그인 성공: { user: "${user}", token: "${token}" }`);
     } catch({ message }) {
       console.error(`[로그인 실패]: ${message}`);
     }

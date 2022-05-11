@@ -56,7 +56,7 @@ export const commonApi = {
       // FIXME: BE 연결 시, token params 지우기
       token: process.env.NODE_ENV === "development" 
         ? "jwt token for development"
-        : undefined,
+        : "jwt token for production"
     }});
   },
 };
