@@ -1,36 +1,30 @@
-import React, {
-  //
-} from "react";
+import React from "react";
 
 import {
-  Routes,
-  Route,
+  useRoutes,
 } from "react-router-dom";
 
-import createMainRoute from "./mainRoute";
-import createAuthorRoute from "./authorRoute";
+import MainLayout from "@/layouts/MainLayout/MainLayout";
+import Home from "@/views/Home";
+import Study from "@/views/Study";
 
 /** @type { import("react-router-dom").RouteObject[] } */
 const routes = [
-  createAuthorRoute({ path: "/author" }),
-  createMainRoute({ path: "/" }),
+  {
+    path: "/",
+    element: <MainLayout />,
+    children: [
+      {
+        path: "",
+        element: <Home />
+      },
+      {
+        path: "study",
+        element: <Study />,
+      },
+    ],
+  },
 ];
 
-const Router = () => {
-  return (
-    <Routes>
-      {routes.map(({ path, element, children }, idx) => {
-        return (
-          <Route 
-            path={path} 
-            element={element} 
-            children={children}
-            key={idx} 
-          />
-        )
-      })}
-    </Routes>
-  );
-};
-
-export default Router;
+const MainRouter = () => useRoutes(routes);
+export default MainRouter;
