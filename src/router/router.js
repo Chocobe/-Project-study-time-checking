@@ -5,8 +5,8 @@ import {
 } from "react-router-dom";
 
 import MainLayout from "@/layouts/MainLayout/MainLayout";
-import Home from "@/views/Home";
-import Study from "@/views/Study";
+import Home from "@/views/Home/Home";
+import Study from "@/views/Study/Study";
 
 /** @type { import("react-router-dom").RouteObject[] } */
 const routes = [
