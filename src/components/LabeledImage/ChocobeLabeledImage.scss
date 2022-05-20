@@ -1,0 +1,14 @@
+.ChocobeLabeledImage {
+  @apply w-full;
+  @apply flex items-center;
+
+  &-img {
+    @apply mr-16 p-4;
+
+    border-radius: 4px;
+  }
+
+  &-caption {
+    
+  }
+}
