@@ -24,6 +24,16 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/oauth",
+    element: <MainLayout />,
+    children: [
+      {
+        path: "redirect",
+        element: <Study />,
+      },
+    ],
+  },
 ];
 
 const MainRouter = () => useRoutes(routes);
