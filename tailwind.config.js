@@ -13,8 +13,10 @@ const colors = {
   "custom-gray-77": "#777",
   "custom-gray-33": "#333",
   "custom-gray-bb": "#bbb",
-  
-  "custom-pink": "#ff1493",
+
+  "custom-green": "#94D983",
+  "custom-yellow": "#E7E997",
+  "custom-pink": "#FFA8A8",
 }
 
 module.exports = {
