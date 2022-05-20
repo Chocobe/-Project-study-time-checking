@@ -61,7 +61,7 @@ export const commonApi = {
   },
 };
 
-const privateApi = {
+export const privateApi = {
   async hello() {
     return await api.get("/hello", { params: {
       param1: "인자 1",
@@ -69,5 +69,3 @@ const privateApi = {
     }});
   },
 };
-
-export default privateApi;
