@@ -1,20 +1,61 @@
 import React, {
-  useState,
+  useMemo,
   useCallback,
+  useContext,
 } from "react";
-import { Outlet } from "react-router-dom";
+import { 
+  useNavigate,
+  Outlet,
+} from "react-router-dom";
 
+import {
+  MainStateContext,
+  MainDispatchContext,
+} from "@/context/MainContext";
 import ChocobeButton from "@/components/ChocobeButton/ChocobeButton";
 
 import "./MainLayout.scss";
 
 const MainLayout = () => {
-  // TODO: useCOntext() 필요
-  
-  const [buttonName] = useState("로그인");
+  const state = useContext(MainStateContext);
+  const dispatch = useContext(MainDispatchContext);
+  const navigator = useNavigate();
 
-  const onClick = useCallback(() => console.log("로그인 버튼 클릭"), []);
-  
+  const hasLogin = useMemo(() => {
+    const { email, password, token } = state;
+
+    return email && password && token;
+  }, [state]);
+
+  const authButtonName = useMemo(() => {
+    return hasLogin ? "로그아웃" : "로그인";
+  }, [hasLogin]);
+
+  const login = useCallback(async () => {
+    await dispatch.login("초코비 이메일 👍", "초코비 비번 🎈");
+
+    navigator("/study");
+    
+    console.log("222 번째로 호출 되야함");
+  }, [dispatch]);
+
+  const logout = useCallback(() => {
+    dispatch.logout();
+    navigator("/");
+  }, [dispatch, navigator]);
+
+  const onClickAuthButton = useCallback(() => {
+    // FIXME: 임시 로직
+    // FIXME: FIXME: Google OAuth 연결 시, 로직 바꾸기
+
+    hasLogin
+      ? logout()
+      : login();
+  }, [hasLogin, login, logout]);
+
+  // const url = "http://study-with-ai.p-e.kr/oauth2/authorization/google?redirect_uri=http://localhost:3000/oauth/redirect";
+  const url = "http://study-with-ai.p-e.kr/oauth2/authorization/google?redirect_uri=http://localhost:3000/oauth/redirect"
+
   return (
     <div className="MainLayout">
       <header className="MainLayout-header">
@@ -31,12 +72,14 @@ const MainLayout = () => {
         <div className="MainLayout-actions-decorator" />
 
         <ChocobeButton
-          onClick={onClick}
           className="MainLayout-actions-button"
-          // fluid
+          onClick={onClickAuthButton}
         >
-          {buttonName}
+          {authButtonName}
         </ChocobeButton>
+
+        {/* FIXME: OAuth2 Google 로그인 */}
+        {/* <a href={process.env.REACT_APP_LOGIN_GOOGLE_URL} target="_black">로그인 테스트</a> */}
       </div>
 
       <main className="MainLayout-main">
