@@ -22,6 +22,7 @@
     &-description {
       @apply pl-28;
 
+      word-break: keep-all;
       font-size: 28px;
       font-family: 'East Sea Dokdo', cursive, sans-serif;
     }
@@ -43,14 +44,44 @@
     &-button {
       @apply block;
       @apply ml-auto;
-      // @apply text-custom-gray-33;
 
-      // background-color: rgb(179, 179, 179);
       transform: translateY(-150%);
     }
   }
 
   &-main {
     //
+
+    &-intro {
+      @apply flex justify-center;
+    
+      &-list {
+        //
+
+        &-item {
+          @apply relative;
+          @apply mt-16;
+          @apply pl-16;
+    
+          &:first-child {
+            @apply mt-0;
+          }
+    
+          &::before {
+            @apply w-8 h-8;
+            @apply block;
+            @apply absolute;
+            @apply bg-white;
+            
+            content: "";
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+    
+            border-radius: 50%;
+          }
+        }
+      }
+    }
   }
 }

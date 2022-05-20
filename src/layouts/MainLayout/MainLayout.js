@@ -12,7 +12,7 @@ import {
   MainStateContext,
   MainDispatchContext,
 } from "@/context/MainContext";
-import ChocobeButton from "@/components/ChocobeButton/ChocobeButton";
+import ChocobeButton from "@/components/Button/ChocobeButton";
 
 import "./MainLayout.scss";
 
@@ -83,6 +83,18 @@ const MainLayout = () => {
       </div>
 
       <main className="MainLayout-main">
+        <div className="MainLayout-main-intro">
+          <ul className="MainLayout-main-intro-list">
+            <li className="MainLayout-main-intro-list-item">
+              캠을 통해 AI 가 순수 공부시간을 측정해 줍니다.
+            </li>
+
+            <li className="MainLayout-main-intro-list-item">
+              AI 가 측정하는 시간은 3가지 형태로 측정합니다.
+            </li>
+          </ul>
+        </div>
+
         <Outlet />
       </main>
     </div>
