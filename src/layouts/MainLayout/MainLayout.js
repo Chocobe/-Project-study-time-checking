@@ -53,9 +53,6 @@ const MainLayout = () => {
       : login();
   }, [hasLogin, login, logout]);
 
-  // const url = "http://study-with-ai.p-e.kr/oauth2/authorization/google?redirect_uri=http://localhost:3000/oauth/redirect";
-  const url = "http://study-with-ai.p-e.kr/oauth2/authorization/google?redirect_uri=http://localhost:3000/oauth/redirect"
-
   return (
     <div className="MainLayout">
       <header className="MainLayout-header">
