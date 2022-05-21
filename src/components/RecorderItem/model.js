@@ -1,11 +1,19 @@
-export const descriptionItems = [
+export const itemTypes = {
+  STUDY: "study",
+  PHONE: "phone",
+  EMPTY: "empty",
+};
+
+export const recorderItemModels = [
   {
+    type: itemTypes.STUDY,
     fileName: "study-removebg-preview.png",
     alt: "스터디 이미지",
     bgColor: "#94D983",
     label: "열심히 공부중 입니다.",
   },
   {
+    type: itemTypes.PHONE,
     fileName: "phone-removebg-preview.png",
     alt: "폴 사용 이미지",
     bgColor: "#E7E997",
@@ -17,6 +25,7 @@ export const descriptionItems = [
     ),
   },
   {
+    type: itemTypes.EMPTY,
     fileName: "empty-removebg-preview.png",
     alt: "자리비움 이미지",
     bgColor: "#FFA8A8",
