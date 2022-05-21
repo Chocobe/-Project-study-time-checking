@@ -12,8 +12,8 @@ import {
   MainDispatchContext,
 } from "@/context/MainContext"
 
-import ChocobeLabeledImage from "@/components/LabeledImage/ChocobeLabeledImage";
-import { descriptionItems } from "./descriptionItems";
+import { itemTypes } from "@/components/RecorderItem/model";
+import ChocobeRecorderItem from "@/components/RecorderItem/ChocobeRecorderItem";
 
 import "./Home.scss";
 
@@ -33,25 +33,13 @@ const Home = () => {
   
   return (
     <div className="Home">
-      {/* <ul className="Home-introduce">
-        <li className="Home-introduce-item">
-          캠을 통해 AI 가 순수 공부시간을 측정해 줍니다.
-        </li>
-
-        <li className="Home-introduce-item">
-          AI 가 측정하는 시간은 3가지 형태로 측정합니다.
-        </li>
-      </ul> */}
-
       <div className="Home-description">
         {
-          descriptionItems.map(item =>
-            <div className="Home-description-item" key={item.fileName}>
-              <ChocobeLabeledImage {...item}>
-                {item.label}
-              </ChocobeLabeledImage>
+          Object.values(itemTypes).map(type => (
+            <div className="Home-description-item" key={type}>
+              <ChocobeRecorderItem type={type} />
             </div>
-          )
+          ))
         }
       </div>
     </div>

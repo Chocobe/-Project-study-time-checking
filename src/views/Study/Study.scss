@@ -1,25 +1,65 @@
 .Study {
-  @apply mx-auto mt-40;
+  // @apply mx-auto mt-40;
+  @apply mt-40;
   @apply h-full;
-  @apply flex justify-center gap-20;
+  @apply relative;
 
-  max-width: 600px;
+  &-inner {
+    @apply mx-auto;
+    @apply flex justify-center gap-20;
 
+    max-width: 600px;
   
-  &-camWrapper {
-    @apply w-full;
-    
-    &-cam {
+    &-camWrapper {
       @apply w-full;
-      @apply h-auto;
+      
+      &-cam {
+        @apply w-full;
+        @apply h-auto;
 
-      border-radius: 8px;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+        border-radius: 8px;
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    &-record {
+      @apply shrink-0;
+      @apply flex flex-col gap-20;
     }
   }
 
-  &-record {
-    @apply shrink-0;
-    @apply flex flex-col gap-20;
+  &-actions {
+    @apply mt-20;
+    @apply text-right;
+    
+    &-add {
+      @apply relative;
+
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 5px solid #fff;
+
+      @mixin bar($width, $height) {
+        @apply absolute;
+        @apply bg-white;
+
+        content: "";
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        width: $width;
+        height: $height;
+      }
+
+      &::before {
+        @include bar(70%, 5px);
+      }
+
+      &::after {
+        @include bar(5px, 70%);
+      }
+    }
   }
 }
