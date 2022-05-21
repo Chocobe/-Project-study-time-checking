@@ -43,10 +43,6 @@ const mainReducer = (prevState, action) => {
       // localStorage 에서 email 가져오기
       const storageData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
 
-      console.log("INIT");
-
-      console.log(storageData);
-      
       return {
         email: storageData?.email,
         password: storageData?.password,

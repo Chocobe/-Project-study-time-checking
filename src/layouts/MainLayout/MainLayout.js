@@ -37,7 +37,7 @@ const MainLayout = () => {
     navigator("/study");
     
     console.log("222 번째로 호출 되야함");
-  }, [dispatch]);
+  }, [dispatch, navigator]);
 
   const logout = useCallback(() => {
     dispatch.logout();
@@ -79,7 +79,7 @@ const MainLayout = () => {
         </ChocobeButton>
 
         {/* FIXME: OAuth2 Google 로그인 */}
-        {/* <a href={process.env.REACT_APP_LOGIN_GOOGLE_URL} target="_black">로그인 테스트</a> */}
+        <a href={process.env.REACT_APP_LOGIN_GOOGLE_URL} target="_black">로그인 테스트</a>
       </div>
 
       <main className="MainLayout-main">
