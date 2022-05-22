@@ -1,9 +1,10 @@
 .ChocobeButton {
   @apply py-8 px-20;
-  @apply bg-custom-gray-bb;
   @apply text-custom-black-12;
   
   border-radius: 4px;
+
+  background-color: var(--bgColor);
 
   &__fluid {
     @apply w-full;

@@ -5,7 +5,8 @@ import React, {
 import "./ChocobeButton.scss";
 
 const ChocobeButton = ({
-  className, fluid, children, onClick,
+  className, fluid, bgColor = "#fff",
+  children, onClick,
 }) => {
   const parsedClassName = useMemo(() => {
     const names = Object.entries({
@@ -24,6 +25,9 @@ const ChocobeButton = ({
     <button
       className={parsedClassName}
       onClick={onClick}
+      style={{
+        "--bgColor": bgColor,
+      }}
     >
       {children}
     </button>
