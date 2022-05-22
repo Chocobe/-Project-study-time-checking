@@ -6,7 +6,7 @@ import React, {
 
 import ChocobeButton from "@/components/Button/ChocobeButton";
 
-import { fromEvent } from "rxjs";
+import { fromEvent, merge } from "rxjs";
 import { filter } from "rxjs/operators";
 
 import "./ChocobeModal.scss";
@@ -70,8 +70,13 @@ const ChocobeModal = ({
   const subscribeBackdrop = useCallback(() => {
     unsubscribeBackdrop();
     
-    const subscription = fromEvent(window, "click").pipe(
-      filter(({ target }) => target.classList.contains("ChocobeModal"))
+    const subscription = merge(
+      fromEvent(window, "click").pipe(
+        filter(({ target }) => target.classList.contains("ChocobeModal"))
+      ),
+      fromEvent(window, 'keydown').pipe(
+        filter(({ key }) => key.toLowerCase() === 'escape')
+      ),
     ).subscribe(onCancel);
 
     setBackdropSubscription(subscription);
