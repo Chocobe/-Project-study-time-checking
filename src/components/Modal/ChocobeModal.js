@@ -1,38 +1,59 @@
 import React, {
   useState,
+  useRef,
   useCallback,
   useEffect,
 } from "react";
 
 import ChocobeButton from "@/components/Button/ChocobeButton";
+import ChocobeInput from "@/components/Input/ChocobeInput";
 
 import { fromEvent, merge } from "rxjs";
-import { filter } from "rxjs/operators";
+import { filter, tap } from "rxjs/operators";
 
 import "./ChocobeModal.scss";
 
 const ChocobeModal = ({
-  isOpen, title, description,
+  isOpen, id, title, description, value = "",
   okText, cancelText,
   okBgColor, cancelBgColor,
   onOk, onCancel,
 }) => {
-  const [backdropSubscription, setBackdropSubscription] = useState();
+  const [curValue, setCurValue] = useState(value);
+  const curValueRef = useRef();
+  const $input = useRef();
   
+  curValueRef.current = curValue;
+
+  const backdropSubscription = useRef();
+
+  const onInput = useCallback(({ target: { value } }) => {
+    setCurValue(value);
+  }, []);
+
+  const onClickOk = useCallback(() => {
+    onOk?.({ id, value: curValueRef.current });
+    onCancel?.();
+  }, [id, curValueRef, onOk, onCancel]);
+
+  const init = useCallback(() => {
+    setCurValue(value);
+  }, [value]);
+
   const renderOkButton = useCallback(() => {
     if (!okText) return;
 
     return (
       <ChocobeButton
         className="ChocobeModal-modal-actions-ok"
-        onClick={onOk}
+        onClick={onClickOk}
         fluid
         bgColor={okBgColor}
       >
         {okText}
       </ChocobeButton>
     )
-  }, [okText, onOk, okBgColor]);
+  }, [okText, okBgColor, onClickOk]);
 
   const renderCancelButton = useCallback(() => {
     if (!cancelText) return;
@@ -64,7 +85,8 @@ const ChocobeModal = ({
   }, [renderOkButton, renderCancelButton]);
 
   const unsubscribeBackdrop = useCallback(() => {
-    backdropSubscription?.unsubscribe();
+    backdropSubscription.current?.unsubscribe();
+    backdropSubscription.current = undefined;
   }, []);
 
   const subscribeBackdrop = useCallback(() => {
@@ -74,19 +96,28 @@ const ChocobeModal = ({
       fromEvent(window, "click").pipe(
         filter(({ target }) => target.classList.contains("ChocobeModal"))
       ),
-      fromEvent(window, 'keydown').pipe(
+      fromEvent(window, "keydown").pipe(
         filter(({ key }) => key.toLowerCase() === 'escape')
       ),
+      fromEvent(window, "keydown").pipe(
+        filter(({ key }) => key.toLowerCase() === 'enter'),
+        tap(onClickOk)
+      )
     ).subscribe(onCancel);
 
-    setBackdropSubscription(subscription);
-  }, [onCancel, unsubscribeBackdrop]);
+    backdropSubscription.current = subscription;
+  }, [onClickOk, onCancel, unsubscribeBackdrop]);
 
   useEffect(() => {
-    isOpen
-      ? subscribeBackdrop()
-      : unsubscribeBackdrop();
-  }, [isOpen, subscribeBackdrop, unsubscribeBackdrop]);
+    init();
+
+    if (isOpen) {
+      $input.current?.focus();
+      subscribeBackdrop();
+    } else {
+      unsubscribeBackdrop();
+    }
+  }, [isOpen, subscribeBackdrop, unsubscribeBackdrop, init]);
 
   if (!isOpen) return;
 
@@ -100,11 +131,16 @@ const ChocobeModal = ({
         {
           description
             ? <p className="ChocobeModal-modal-description">{description}</p>
-            : <></>
+            : undefined
         }
 
-        <input
+        <ChocobeInput
+          ref={$input}
           className="ChocobeModal-modal-input"
+          value={curValueRef.current}
+          onInput={onInput}
+          placeholder="과목명을 입력해 주세요"
+          fluid
         />
 
         {renderActions()}
