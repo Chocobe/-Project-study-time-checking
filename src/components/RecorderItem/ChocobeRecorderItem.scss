@@ -62,7 +62,6 @@
         }
 
         &-play {
-          @apply relative;
           @apply absolute;
 
           width: $iconHeight;
@@ -125,7 +124,7 @@
   &__play {
     @apply bg-custom-green-38;
 
-    &-controller {
+    .ChocobeRecorderItem-controller {
       //
 
       &-button {
@@ -133,6 +132,14 @@
 
         &-icon {
           //
+
+          &-pause {
+            display: block;
+          }
+
+          &-play {
+            display: none;
+          }
         }
       }
     }

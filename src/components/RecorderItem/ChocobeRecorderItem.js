@@ -6,10 +6,11 @@ import React, {
 import "./ChocobeRecorderItem.scss";
 
 const ChocobeRecorderItem = ({
+  id,
   value,
   isPlay,
   onClickRoot,
-  onUpdate,
+  // onUpdate,
   children,
 }) => {
   const rootClassName = useMemo(() => {
@@ -22,17 +23,13 @@ const ChocobeRecorderItem = ({
 
   const onClickController = useCallback(e => {
     e.stopPropagation();
-
-    onUpdate({
-      label: children,
-      value,
-    });
-  }, [children, value, onUpdate]);
+    // FIXME: Play || Pause 동작 추가하기
+  }, []);
   
   return (
     <div 
       className={rootClassName}
-      onClick={onClickRoot}
+      onClick={() => onClickRoot({ id, label: children })}
     >
       <div className="ChocobeRecorderItem-controller">
         <button 
