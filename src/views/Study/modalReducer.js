@@ -1,8 +1,11 @@
 const modalReducer = (prevState, actions) => {
   const {
     type,
-    onOk,
-    onCancel,
+    id,
+    label,
+
+    // onOk,
+    // onCancel,
   } = actions;
 
   switch (type) {
@@ -15,8 +18,8 @@ const modalReducer = (prevState, actions) => {
         okText: "등록",
         cancelText: "취소",
         okBgColor: "#03a9f4",
-        onOk,
-        onCancel,
+        // onOk,
+        // onCancel,
       };
     }
 
@@ -29,8 +32,11 @@ const modalReducer = (prevState, actions) => {
         okText: "수정",
         cancelText: "취소",
         okBgColor: "#03a9f4",
-        onOk,
-        onCancel,
+
+        id,
+        label,
+        // onOk,
+        // onCancel,
       }
     }
 
@@ -48,18 +54,18 @@ const modalReducer = (prevState, actions) => {
         okText: "삭제",
         cancelText: "취소",
         okBgColor: "#ff1493",
-        onOk,
-        onCancel,
+
+        id,
+        label,
+        // onOk,
+        // onCancel,
       };
     }
 
     case "CANCEL": {
-      const resultState = Object.keys(prevState).reduce((state, key) => ({
-        ...state,
-        [key]: undefined,
-      }), {});
-
-      resultState.isOpen = false;
+      const resultState = {
+        isOpen: false,
+      }
 
       return resultState;
     }
