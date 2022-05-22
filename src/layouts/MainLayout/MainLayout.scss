@@ -1,6 +1,6 @@
 .MainLayout {
   @apply w-full h-full;
-  @apply overflow-y-auto;
+  @apply overflow-y-scroll;
 
   height: 100vh;
 
