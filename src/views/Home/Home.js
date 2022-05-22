@@ -29,7 +29,7 @@ const Home = () => {
     if (email && password && token) {
       navigator("/study");
     }
-  }, []);
+  }, [dispatch, state, navigator]);
   
   return (
     <div className="Home">

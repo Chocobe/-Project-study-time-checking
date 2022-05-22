@@ -73,7 +73,7 @@ const Study = () => {
     setTimeout(() => {
       initMockSrc();
     });
-  }, []);
+  }, [initMockSrc]);
   // FIXME: Mocking
   
   return (
