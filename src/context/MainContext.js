@@ -120,8 +120,6 @@ const MainContext = ({ children }) => {
       try {
         const { data: { params: payload } } = await commonApi.login(email, password);
 
-        console.log("111 번째로 호출되야 함");
-        
         dispatch({ type: "LOGIN", payload });
 
         return payload;
