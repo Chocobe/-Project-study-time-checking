@@ -4,7 +4,7 @@ export const itemTypes = {
   EMPTY: "empty",
 };
 
-export const recorderItemModels = [
+export const recorderCategoryModel = [
   {
     type: itemTypes.STUDY,
     fileName: "study-removebg-preview.png",

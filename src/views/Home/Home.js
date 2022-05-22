@@ -12,8 +12,8 @@ import {
   MainDispatchContext,
 } from "@/context/MainContext"
 
-import { itemTypes } from "@/components/RecorderItem/model";
-import ChocobeRecorderItem from "@/components/RecorderItem/ChocobeRecorderItem";
+import { itemTypes } from "@/components/RecorderCategory/model";
+import ChocobeRecorderCategory from "@/components/RecorderCategory/ChocobeRecorderCategory";
 
 import "./Home.scss";
 
@@ -37,7 +37,7 @@ const Home = () => {
         {
           Object.values(itemTypes).map(type => (
             <div className="Home-description-item" key={type}>
-              <ChocobeRecorderItem type={type} />
+              <ChocobeRecorderCategory type={type} />
             </div>
           ))
         }

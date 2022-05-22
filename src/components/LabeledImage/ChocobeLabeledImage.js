@@ -21,7 +21,7 @@ const ChocobeLabeledImage = ({
     width: `${size}px`,
     height: `${size}px`,
     backgroundColor: bgColor,
-  }), [bgColor]);
+  }), [size, bgColor]);
 
   const initImg = useCallback(async () => {
     const { default: imgFile } = await import(`@/assets/imgs/${fileName}`);

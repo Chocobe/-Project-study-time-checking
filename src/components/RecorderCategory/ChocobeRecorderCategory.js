@@ -3,7 +3,7 @@ import React, {
 } from "react";
 
 import {
-  recorderItemModels,
+  recorderCategoryModel,
 } from "./model";
 
 import ChocobeLabeledImage from "@/components/LabeledImage/ChocobeLabeledImage";
@@ -12,7 +12,7 @@ const ChocobeRecorderItem = ({
   type, alt, children
 }) => {
   const item = useMemo(() => {
-    return recorderItemModels.find(i => i.type === type)
+    return recorderCategoryModel.find(i => i.type === type)
   }, [type]);
 
   const props = useMemo(() => ({

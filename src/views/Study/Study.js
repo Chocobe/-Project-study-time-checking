@@ -2,8 +2,8 @@ import React, {
   useCallback,
 } from "react";
 
-import { itemTypes } from "@/components/RecorderItem/model";
-import ChocobeRecorderItem from "@/components/RecorderItem/ChocobeRecorderItem";
+import { itemTypes } from "@/components/RecorderCategory/model";
+import ChocobeRecorderCategory from "@/components/RecorderCategory/ChocobeRecorderCategory";
 
 import camMockImg from "@/assets/imgs/camMockImg.png";
 
@@ -28,13 +28,13 @@ const Study = () => {
         <div className="Study-inner-record">
           {
             Object.values(itemTypes).map(type => (
-              <ChocobeRecorderItem
+              <ChocobeRecorderCategory
                 type={type}
                 alt={`${type} 기록`}
                 key={type}
               >
                 00:00:00
-              </ChocobeRecorderItem>
+              </ChocobeRecorderCategory>
             ))
           }
         </div>
