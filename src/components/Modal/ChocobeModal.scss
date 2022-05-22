@@ -1,0 +1,45 @@
+.ChocobeModal {
+  @apply w-full h-full;
+  @apply fixed;
+  @apply flex justify-center items-center;
+  
+  top: 0;
+  left: 0;
+  background-color: rgba(#000, 0.7);
+
+  &-modal {
+    @apply p-40;
+    @apply flex flex-col;
+    @apply bg-custom-black-12;
+
+    min-width: 400px;
+
+    border-radius: 8px;
+    box-shadow: 4px 4px 15px 5px #777;
+
+    &-title {
+      font-size: 20px;
+    }
+
+    &-description {
+      @apply mt-20;
+    }
+
+    &-input {
+      @apply mt-20;
+    }
+
+    &-actions {
+      @apply mt-20;
+      @apply flex gap-20;
+
+      &-ok {
+        //
+      }
+
+      &-cancel {
+        //
+      }
+    }
+  }
+}
