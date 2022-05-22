@@ -1,0 +1,139 @@
+.ChocobeRecorderItem {
+  @apply p-20;
+  @apply flex gap-20;
+  @apply bg-custom-gray-6c;
+
+  border-radius: 8px;
+  box-shadow: 0 0 8px #fff;
+
+  &-controller {
+    //
+
+    &-button {
+      @apply shrink-0;
+      @apply bg-white;
+      @apply overflow-hidden;
+      
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid #000;
+
+      $iconWidth: 12.5px;
+      $iconHeight: 20px;
+
+      &-icon {
+        @apply relative;
+        @apply overflow-hidden;
+
+        &-pause {
+          @apply hidden;
+          
+          $gap: 2.5px;
+          $pauseWidth: ($iconWidth - $gap) / 2;
+
+          @mixin pauseBar($type: "left") {
+            @apply bg-custom-black-12;
+            @apply absolute;
+
+            content: "";
+            width: $pauseWidth;
+            height: $iconHeight;
+            border-radius: 4px;
+
+            top: 50%;
+            left: 50%;
+            
+            @if $type == "left" {
+              transform: translate(calc(-100% - #{$gap / 2}), -50%);
+            } @else {
+              transform: translate($gap / 2, -50%);
+            }
+          }
+
+          &::before {
+            @include pauseBar("left");
+          }
+
+          &::after {
+            @include pauseBar("right");
+          }
+        }
+
+        &-play {
+          @apply relative;
+          @apply absolute;
+
+          width: $iconHeight;
+          height: $iconHeight;
+
+          // background-color: #ff1493;
+
+          top: 50%;
+          left: 50%;
+          // TODO: 중앙 설정값
+          // transform: translate(-50%, -50%);
+
+          // FIXME: animation 테스트 중
+          animation: animation-test 0.5s both;
+          @keyframes animation-test {
+            0% {
+              transform: translate(-200%, -50%);
+            }
+
+            50% {
+              transform: translate(-20%, -50%);
+            }
+
+            100% {
+              transform: translate(-50%, -50%);
+            }
+          }
+
+          &::before {
+            @apply w-0 h-0;
+            @apply absolute;
+
+            content: "";
+            border-left: $iconHeight solid #000;
+            border-top: $iconHeight / 2 solid transparent;
+            border-bottom: $iconHeight / 2 solid transparent;
+
+            top: 50%;
+            left: 50%;
+            transform: translate(-40%, -50%);
+          }
+        }
+      }
+    }
+  }
+
+  &-content {
+    @apply w-full;
+    @apply flex justify-between items-center;
+    @apply font-bold;
+    @apply text-white;
+    
+    &-label,
+    &-value {
+      color: inherit;
+      font-size: inherit;
+    }
+  }
+
+  &__play {
+    @apply bg-custom-green-38;
+
+    &-controller {
+      //
+
+      &-button {
+        //
+
+        &-icon {
+          //
+        }
+      }
+    }
+  }
+}
