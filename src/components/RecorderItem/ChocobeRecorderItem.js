@@ -8,6 +8,7 @@ import "./ChocobeRecorderItem.scss";
 const ChocobeRecorderItem = ({
   value,
   isPlay,
+  onClickRoot,
   onUpdate,
   children,
 }) => {
@@ -19,7 +20,9 @@ const ChocobeRecorderItem = ({
       : buttonRootClass;
   }, [isPlay]);
 
-  const onClick = useCallback(() => {
+  const onClickController = useCallback(e => {
+    e.stopPropagation();
+
     onUpdate({
       label: children,
       value,
@@ -27,11 +30,14 @@ const ChocobeRecorderItem = ({
   }, [children, value, onUpdate]);
   
   return (
-    <div className={rootClassName}>
+    <div 
+      className={rootClassName}
+      onClick={onClickRoot}
+    >
       <div className="ChocobeRecorderItem-controller">
         <button 
           className="ChocobeRecorderItem-controller-button"
-          onClick={onClick}
+          onClick={onClickController}
         >
           <span className="ChocobeRecorderItem-controller-button-icon">
             <span className="ChocobeRecorderItem-controller-button-icon-pause" />
