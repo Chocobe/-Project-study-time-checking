@@ -1,87 +1,88 @@
 .MainLayout {
   @apply w-full h-full;
-  @apply px-20;
-  @apply mx-auto;
-  @apply mx-auto;
-  @apply overflow-x-hidden;
-  @apply bg-custom-black-12;
+  @apply overflow-y-auto;
 
-  // box-shadow: 0 0 10px 10px #121212;
-
-  // max-width: 1024px;
-  max-width: 720px;
   height: 100vh;
 
-  &-header {
-    @apply py-8 px-16;
-    
-    &-title {
-      font-size: 40px;
-      font-family: 'Permanent Marker', cursive, sans-serif;
+  &-inner {
+    @apply mx-auto;
+    @apply p-20 pb-40;
+    @apply bg-custom-black-12;
+    @apply overflow-x-hidden;
+
+    max-width: 720px;
+    min-height: 100%;
+  
+    &-header {
+      @apply px-16;
+      
+      &-title {
+        font-size: 40px;
+        font-family: 'Permanent Marker', cursive, sans-serif;
+      }
+
+      &-description {
+        @apply pl-28;
+
+        word-break: keep-all;
+        font-size: 28px;
+        font-family: 'East Sea Dokdo', cursive, sans-serif;
+      }
     }
 
-    &-description {
-      @apply pl-28;
+    &-actions {
+      @apply relative;
+      
+      &-decorator {
+        @apply mt-40;
+        @apply bg-custom-gray-33;
 
-      word-break: keep-all;
-      font-size: 28px;
-      font-family: 'East Sea Dokdo', cursive, sans-serif;
+        width: 200%;
+        height: 10px;
+        transform-origin: 0;
+        transform: rotate(-5deg) translateX(-30px);
+      }
+
+      &-button {
+        @apply block;
+        @apply ml-auto;
+
+        transform: translateY(-80%);
+      }
     }
-  }
 
-  &-actions {
-    @apply relative;
-    
-    &-decorator {
-      @apply mt-40;
-      @apply bg-custom-gray-33;
+    &-main {
+      //
 
-      width: 200%;
-      height: 10px;
-      transform-origin: 0;
-      transform: rotate(-5deg) translateX(-30px);
-    }
+      &-intro {
+        @apply mb-40;
+        @apply px-20;
+      
+        &-list {
+          //
 
-    &-button {
-      @apply block;
-      @apply ml-auto;
-
-      transform: translateY(-80%);
-    }
-  }
-
-  &-main {
-    //
-
-    &-intro {
-      @apply mb-40;
-      // @apply flex justify-center;
-      @apply px-20;
-    
-      &-list {
-        //
-
-        &-item {
-          @apply relative;
-          @apply mt-16;
-          @apply pl-16;
-    
-          &:first-child {
-            @apply mt-0;
-          }
-    
-          &::before {
-            @apply w-8 h-8;
-            @apply block;
-            @apply absolute;
-            @apply bg-white;
-            
-            content: "";
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-    
-            border-radius: 50%;
+          &-item {
+            @apply relative;
+            @apply mt-16;
+            @apply pl-16;
+      
+            &:first-child {
+              @apply mt-0;
+            }
+      
+            &::before {
+              @apply w-8 h-8;
+              @apply block;
+              @apply absolute;
+              @apply bg-white;
+              
+              content: "";
+              top: 50%;
+              left: 0;
+              transform: translateY(-50%);
+      
+              border-radius: 50%;
+            }
           }
         }
       }
