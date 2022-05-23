@@ -29,7 +29,8 @@ const Home = () => {
     if (email && password && token) {
       navigator("/study");
     }
-  }, [dispatch, state, navigator]);
+    // eslint-disable-next-line
+  }, []);
   
   return (
     <div className="Home">

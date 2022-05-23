@@ -49,7 +49,7 @@ const ChocobeRecorderItem = ({
         </div>
 
         <div className="ChocobeRecorderItem-content-value">
-          {value}
+          {/* {value} */}
         </div>
       </div>
     </div>
