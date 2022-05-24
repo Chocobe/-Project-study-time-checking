@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 
 import MainLayout from "@/layouts/MainLayout/MainLayout";
+import LoginRedirect from "@/views/LoginRedirect/LoginRedirect";
 import Home from "@/views/Home/Home";
 import Study from "@/views/Study/Study";
 
@@ -25,14 +26,8 @@ const routes = [
     ],
   },
   {
-    path: "/oauth",
-    element: <MainLayout />,
-    children: [
-      {
-        path: "redirect",
-        element: <Study />,
-      },
-    ],
+    path: "/oauth/redirect",
+    element: <LoginRedirect />,
   },
 ];
 
