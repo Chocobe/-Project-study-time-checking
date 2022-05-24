@@ -18,6 +18,7 @@ const clearLocalStorage = () => {
 export const DISPATCH_TYPE = {
   INIT: "init",
   LOGIN: "login",
+  LOGOUT: "logout",
 };
 
 // FIXME: types 파일로 분리하기
@@ -26,36 +27,34 @@ export const DISPATCH_TYPE = {
  *  email: string;
  *  password: string;
  * }, {
- *  type: "INIT" | "LOGIN";
+ *  type: "INIT" | "LOGIN" | "LOGOUT";
  *  payload: {
  *    email: string;
  *    password: string;
  *  }
  * }> }
  */
-export const mainReducer = (_prevState, action) => {
+export const mainReducer = (prevState, action) => {
   const { type, payload } = action;
 
   switch (type) {
     case DISPATCH_TYPE.INIT: {
-      // localStorage 에서 email 가져오기
       const storageData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-
-      return {
-        token: storageData?.token,
-      };
+      return { ...storageData };
     }
     
     case DISPATCH_TYPE.LOGIN: {
-      // OAuth2 Google Flow 에 따라 변경 예정
-      console.log("MainDispatchContext - LOGIN")
-      console.log(payload);
-      
       setLocalStorage(payload);
+      return { ...payload };
+    }
 
-      return {
-        ...payload,
-      };
+    case DISPATCH_TYPE.LOGOUT: {
+      clearLocalStorage()
+      return Object.entries(prevState)
+        .reduce((state, [key]) => ({
+          ...state,
+          [key]: undefined 
+        }), {});
     }
 
     default: {
