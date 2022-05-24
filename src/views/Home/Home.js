@@ -12,6 +12,8 @@ import {
   MainDispatchContext,
 } from "@/context/MainContext"
 
+import { DISPATCH_TYPE } from "@/context/mainReducer";
+
 import { itemTypes } from "@/components/RecorderCategory/model";
 import ChocobeRecorderCategory from "@/components/RecorderCategory/ChocobeRecorderCategory";
 
@@ -23,8 +25,11 @@ const Home = () => {
   const navigator = useNavigate();
 
   useEffect(() => {
-    dispatch.init();
+    dispatch({ type: DISPATCH_TYPE.INIT });
     const { email, password, token } = state;
+
+    console.log("Home");
+    console.log([email, password, token]);
 
     if (email && password && token) {
       navigator("/study");
