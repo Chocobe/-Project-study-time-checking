@@ -2,6 +2,7 @@ import React, {
   useMemo,
   useCallback,
   useContext,
+  useEffect,
 } from "react";
 import { 
   useNavigate,
@@ -15,37 +16,43 @@ import {
 import ChocobeButton from "@/components/Button/ChocobeButton";
 
 import "./MainLayout.scss";
+import { DISPATCH_TYPE } from "@/context/mainReducer";
 
 const MainLayout = () => {
   const state = useContext(MainStateContext);
   const dispatch = useContext(MainDispatchContext);
   const navigator = useNavigate();
 
+  useEffect(() => {
+    dispatch({ type: DISPATCH_TYPE.INIT });
+  }, [dispatch]);
+  
+  useEffect(() => {
+    if (state?.token) navigator("/study");
+  }, [state, navigator]);
+  
   const hasLogin = useMemo(() => {
-    const { email, password, token } = state;
-
-    return email && password && token;
+    return !!state?.token;
   }, [state]);
 
   const authButtonName = useMemo(() => {
     return hasLogin ? "로그아웃" : "로그인";
   }, [hasLogin]);
 
-  const login = useCallback(async () => {
-    await dispatch.login("초코비 이메일 👍", "초코비 비번 🎈");
+  const login = useCallback(() => {
+    const loginWindow = window.open(process.env.REACT_APP_LOGIN_URL_GOOGLE);
 
-    navigator("/study");
-  }, [dispatch, navigator]);
+    loginWindow.addEventListener("unload", () => {
+      dispatch({ type: DISPATCH_TYPE.INIT });
+    })
+  }, [dispatch]);
 
   const logout = useCallback(() => {
-    dispatch.logout();
+    dispatch({ type: DISPATCH_TYPE.LOGOUT });
     navigator("/");
   }, [dispatch, navigator]);
 
   const onClickAuthButton = useCallback(() => {
-    // FIXME: 임시 로직
-    // FIXME: FIXME: Google OAuth 연결 시, 로직 바꾸기
-
     hasLogin
       ? logout()
       : login();
@@ -73,9 +80,6 @@ const MainLayout = () => {
           >
             {authButtonName}
           </ChocobeButton>
-
-          {/* FIXME: OAuth2 Google 로그인 */}
-          <a href={process.env.REACT_APP_LOGIN_GOOGLE_URL} target="_black">로그인 테스트</a>
         </div>
 
         <main className="MainLayout-inner-main">
