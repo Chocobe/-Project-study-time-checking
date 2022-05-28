@@ -1,0 +1,23 @@
+.ChocobeRecorder {
+  @apply mx-auto;
+  @apply flex justify-center gap-20;
+
+  max-width: 600px;
+
+  &-camWrapper {
+    @apply w-full;
+    
+    &-cam {
+      @apply w-full;
+      @apply h-auto;
+
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  &-record {
+    @apply shrink-0;
+    @apply flex flex-col gap-20;
+  }
+}

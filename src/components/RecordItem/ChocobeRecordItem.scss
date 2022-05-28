@@ -7,6 +7,8 @@
   border-radius: 8px;
   box-shadow: 0 0 8px #fff;
 
+  transition: background-color 0.28s;
+
   &-controller {
     //
 
@@ -31,7 +33,7 @@
           @apply hidden;
           
           $gap: 2.5px;
-          $pauseWidth: ($iconWidth - $gap) / 2;
+          $pauseWidth: calc(#{$iconWidth - $gap} / 2);
 
           @mixin pauseBar($type: "left") {
             @apply bg-custom-black-12;
@@ -44,11 +46,11 @@
 
             top: 50%;
             left: 50%;
-            
+
             @if $type == "left" {
-              transform: translate(calc(-100% - #{$gap / 2}), -50%);
+              transform: translate(calc(-100% - #{$gap} / 2), -50%);
             } @else {
-              transform: translate($gap / 2, -50%);
+              transform: translate(calc(#{$gap} / 2), -50%);
             }
           }
 
@@ -67,14 +69,9 @@
           width: $iconHeight;
           height: $iconHeight;
 
-          // background-color: #ff1493;
-
           top: 50%;
           left: 50%;
-          // TODO: 중앙 설정값
-          // transform: translate(-50%, -50%);
 
-          // FIXME: animation 테스트 중
           animation: animation-test 0.5s both;
           @keyframes animation-test {
             0% {
@@ -96,8 +93,8 @@
 
             content: "";
             border-left: $iconHeight solid #000;
-            border-top: $iconHeight / 2 solid transparent;
-            border-bottom: $iconHeight / 2 solid transparent;
+            border-top: calc(#{$iconHeight} / 2) solid transparent;
+            border-bottom: calc(#{$iconHeight} / 2) solid transparent;
 
             top: 50%;
             left: 50%;

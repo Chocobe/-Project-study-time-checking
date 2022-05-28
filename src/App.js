@@ -2,6 +2,7 @@ import MainRouter from "@/router/router";
 import { BrowserRouter } from "react-router-dom";
 
 import MainContext from "@/context/MainContext/MainContext";
+import RecorderContext from "@/context/RecorderContext/RecorderContext";
 
 import './App.scss';
 
@@ -9,11 +10,13 @@ function App() {
   return (
     <BrowserRouter>
       <MainContext>
-        <div className="app">
-          <div className="app-content">
-            <MainRouter />
+        <RecorderContext>
+          <div className="app">
+            <div className="app-content">
+              <MainRouter />
+            </div>
           </div>
-        </div>
+        </RecorderContext>
       </MainContext>
     </BrowserRouter>
   );

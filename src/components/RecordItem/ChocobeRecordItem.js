@@ -1,17 +1,24 @@
 import React, {
+  useContext,
   useMemo,
   useCallback,
 } from "react";
 
+import {
+  RecorderDispatchContext,
+} from "@/context/RecorderContext/RecorderContext";
+import { DISPATCH_TYPE } from "@/context/RecorderContext/recorderReducer";
+
 import "./ChocobeRecordItem.scss";
 
 const ChocobeRecordItem = ({
-  id,
-  value,
-  isPlay,
-  onClickRoot,
-  children,
+  item, isPlay,
+  onClick, children,
 }) => {
+  const dispatch = useContext(RecorderDispatchContext);
+
+  const studyTime = useMemo(() => item.timeRecord?.studyTime, [item]);
+
   const rootClassName = useMemo(() => {
     const buttonRootClass = "ChocobeRecorderItem";
 
@@ -20,16 +27,26 @@ const ChocobeRecordItem = ({
       : buttonRootClass;
   }, [isPlay]);
 
+  const onClickItem = useCallback(() => {
+    onClick(item);
+  }, [item, onClick]);
+
   const onClickController = useCallback(e => {
     e.stopPropagation();
     // FIXME: Play || Pause 동작 추가하기
-    console.log(`${children} 과목 플래이`);
-  }, [children]);
+    console.log(item);
+
+    const type = isPlay
+      ? DISPATCH_TYPE.PAUSE
+      : DISPATCH_TYPE.START;
+
+    dispatch({ type, item });
+  }, [item, isPlay, dispatch]);
   
   return (
     <div 
       className={rootClassName}
-      onClick={() => onClickRoot({ id, children })}
+      onClick={onClickItem}
     >
       <div className="ChocobeRecorderItem-controller">
         <button 
@@ -49,7 +66,8 @@ const ChocobeRecordItem = ({
         </div>
 
         <div className="ChocobeRecorderItem-content-value">
-          {value}
+          {/* {value} */}
+          {studyTime}
         </div>
       </div>
     </div>

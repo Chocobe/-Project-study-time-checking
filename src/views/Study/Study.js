@@ -11,9 +11,9 @@ import { useNavigate } from "react-router-dom";
 
 import { MainDispatchContext } from "@/context/MainContext/MainContext";
 import { DISPATCH_TYPE } from "@/context/MainContext/mainReducer";
+import { RecorderStateContext } from "@/context/RecorderContext/RecorderContext";
 
-import { itemTypes } from "@/components/RecordCategory/model";
-import ChocobeRecorderCategory from "@/components/RecordCategory/ChocobeRecordCategory";
+import ChocobeRecorder from "@/components/Recorder/ChocobeRecorder";
 import ChocobeRecordItem from "@/components/RecordItem/ChocobeRecordItem";
 import ChocobeModal from "@/components/Modal/ChocobeModal";
 
@@ -24,13 +24,15 @@ import { dispatchSubject } from "./dispatchSubject";
 import "./Study.scss";
 
 const Study = () => {
+  const dispatchContext = useContext(MainDispatchContext);
+  const recorderState = useContext(RecorderStateContext);
+
+  const navigator = useNavigate();
+
   const [modalState, dispatchModal] = useReducer(modalReducer);
   const [subjects, setSubjects] = useState([]);
   const subjectsRef = useRef();
   subjectsRef.current = subjects;
-
-  const dispatchContext = useContext(MainDispatchContext);
-  const navigator = useNavigate();
 
   const GET_SUBJECTS = useCallback(async () => {
     const isSuccess = await dispatchSubject.GET(setSubjects);
@@ -76,11 +78,13 @@ const Study = () => {
     });
   }, []);
 
-  const openEditModal = useCallback(({ id, children }) => {
+  const openEditModal = useCallback(item => {
+    const { subjectId, subjectName } = item;
+    
     dispatchModal({
       type: "EDIT",
-      id,
-      value: children,
+      id: subjectId,
+      value: subjectName,
     });
   }, []);
 
@@ -98,54 +102,19 @@ const Study = () => {
   useEffect(() => {
     GET_SUBJECTS();
   }, [GET_SUBJECTS]);
-
-  // FIXME: Mocking
-  const [mockSrc, setMockSrc] = useState();
-  const initMockSrc = useCallback(async () => {
-    const { default: loadedImg } = await import("@/assets/imgs/camMockImg.png");
-    setMockSrc(loadedImg);
-  }, []);
-  useEffect(() => {
-    setTimeout(() => {
-      initMockSrc();
-    });
-  }, [initMockSrc]);
-  // FIXME: Mocking
   
   return (
     <div className="Study">
-      <div className="Study-inner">
-        <figure className="Study-inner-camWrapper">
-          <img
-            className="Study-inner-camWrapper-cam"
-            src={mockSrc}
-            alt="캠 이미지"
-          />
-        </figure>
-
-        <div className="Study-inner-record">
-          {
-            Object.values(itemTypes).map(type => (
-              <ChocobeRecorderCategory
-                type={type}
-                alt={`${type} 기록`}
-                key={type}
-              >
-                00:00:00
-              </ChocobeRecorderCategory>
-            ))
-          }
-        </div>
-      </div>
+      <ChocobeRecorder />
 
       <div className="Study-items">
         {
           subjects.map(item => (
             <ChocobeRecordItem
-              id={item.subjectId}
-              value={item.timeRecord.studyTime}
+              item={item}
+              isPlay={recorderState?.subjectId === item.subjectId}
               key={item.subjectId}
-              onClickRoot={openEditModal}
+              onClick={openEditModal}
             >
               {item.subjectName}
             </ChocobeRecordItem>
