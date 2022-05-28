@@ -2,7 +2,7 @@ const modalReducer = (prevState, actions) => {
   const {
     type,
     id,
-    label,
+    value,
   } = actions;
 
   console.log(`modalReducer 에서 받은 id: ${id}`);
@@ -29,9 +29,10 @@ const modalReducer = (prevState, actions) => {
         okText: "수정",
         cancelText: "취소",
         okBgColor: "#03a9f4",
+        deleteBgColor: "#ff1493",
 
         id,
-        label,
+        value,
       }
     }
 
@@ -51,7 +52,7 @@ const modalReducer = (prevState, actions) => {
         okBgColor: "#ff1493",
 
         id,
-        label,
+        value,
       };
     }
 

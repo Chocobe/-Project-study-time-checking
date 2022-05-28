@@ -21,19 +21,6 @@ export const DISPATCH_TYPE = {
   LOGOUT: "logout",
 };
 
-// FIXME: types 파일로 분리하기
-/** 
- * @type { import("react").Reducer<{
- *  email: string;
- *  password: string;
- * }, {
- *  type: "INIT" | "LOGIN" | "LOGOUT";
- *  payload: {
- *    email: string;
- *    password: string;
- *  }
- * }> }
- */
 export const mainReducer = (prevState, action) => {
   const { type, payload } = action;
 

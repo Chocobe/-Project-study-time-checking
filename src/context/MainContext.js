@@ -12,8 +12,10 @@ export const MainStateContext = React.createContext();
 /**
  * @type { React.Context<{ 
  *  init: () => void;
- *  login: (email: string, password: string) 
- *    => import("axios").AxiosResponse<{ email: string; password: string; token: string; }>;
+ *  login: (token: string) => import("axios").AxiosResponse<
+ *    { email: string; password: string; token: string; }
+ *  >;
+ *  logout: () => void;
  * }> }
  */
 export const MainDispatchContext = React.createContext();

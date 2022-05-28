@@ -10,7 +10,6 @@ const ChocobeRecorderItem = ({
   value,
   isPlay,
   onClickRoot,
-  // onUpdate,
   children,
 }) => {
   const rootClassName = useMemo(() => {

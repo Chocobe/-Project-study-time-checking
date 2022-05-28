@@ -16,8 +16,8 @@ import "./ChocobeModal.scss";
 const ChocobeModal = ({
   isOpen, id, title, description, value = "",
   okText, cancelText,
-  okBgColor, cancelBgColor,
-  onOk, onCancel,
+  okBgColor, cancelBgColor, deleteBgColor,
+  onOk, onCancel, onDelete,
 }) => {
   const [curValue, setCurValue] = useState(value);
   const curValueRef = useRef();
@@ -36,9 +36,29 @@ const ChocobeModal = ({
     onCancel?.();
   }, [id, curValueRef, onOk, onCancel]);
 
+  const onClickDelete = useCallback(() => {
+    onDelete?.({ id });
+    onCancel?.();
+  }, [id, onDelete]);
+
   const init = useCallback(() => {
     setCurValue(value);
   }, [value]);
+
+  const renderDeleteButton = useCallback(() => {
+    if (!id) return;
+
+    return (
+      <ChocobeButton
+        className="ChocobeModal-modal-header-delete"
+        onClick={onClickDelete}
+        fluid={false}
+        bgColor={deleteBgColor}
+      >
+        삭제
+      </ChocobeButton>
+    );
+  }, [id, deleteBgColor, onClickDelete]);
 
   const renderOkButton = useCallback(() => {
     if (!okText) return;
@@ -124,9 +144,13 @@ const ChocobeModal = ({
   return (
     <div className="ChocobeModal">
       <div className="ChocobeModal-modal">
-        <h3 className="ChocobeModal-modal-title">
-          {title}
-        </h3>
+        <header className="ChocobeModal-modal-header">
+          <h3 className="ChocobeModal-modal-header-title">
+            {title}
+          </h3>
+
+          {renderDeleteButton()}
+        </header>
 
         {
           description

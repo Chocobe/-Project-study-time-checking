@@ -19,4 +19,8 @@ export const subjectApi = {
       timeRecord,
     });
   },
+
+  DELETE({ subjectId }) {
+    return tokenApi.delete(`${this.URI}/${subjectId}`);
+  },
 };

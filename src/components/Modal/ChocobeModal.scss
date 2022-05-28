@@ -17,8 +17,16 @@
     border-radius: 8px;
     box-shadow: 4px 4px 15px 5px #777;
 
-    &-title {
-      font-size: 20px;
+    &-header {
+      @apply flex justify-between items-center;
+      
+      &-title {
+        font-size: 20px;
+      }
+
+      &-delete {
+        color: #fff;
+      }
     }
 
     &-description {

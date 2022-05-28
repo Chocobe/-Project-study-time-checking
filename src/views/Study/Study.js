@@ -4,7 +4,12 @@ import React, {
   useCallback,
   useEffect,
   useReducer,
+  useContext,
 } from "react";
+
+import { useNavigate } from "react-router-dom";
+
+import { MainDispatchContext } from "@/context/MainContext";
 
 import { itemTypes } from "@/components/RecorderCategory/model";
 import ChocobeRecorderCategory from "@/components/RecorderCategory/ChocobeRecorderCategory";
@@ -19,17 +24,24 @@ import "./Study.scss";
 
 const Study = () => {
   const [modalState, dispatchModal] = useReducer(modalReducer);
-
   const [subjects, setSubjects] = useState([]);
   const subjectsRef = useRef();
   subjectsRef.current = subjects;
 
+  const dispatchContext = useContext(MainDispatchContext);
+  const navigator = useNavigate();
+
   const GET_SUBJECTS = useCallback(async () => {
-    await dispatchSubject.GET_SUBJECTS(setSubjects);
-  }, [setSubjects]);
+    const isSuccess = await dispatchSubject.GET(setSubjects);
+
+    if (isSuccess) return;
+
+    dispatchContext.logout();
+    navigator("/");
+  }, [setSubjects, dispatchContext, navigator]);
 
   const POST_SUBJECT = useCallback(async ({ subjectName }) => {
-    await dispatchSubject.POST_SUBJECT({ subjectName });
+    await dispatchSubject.POST({ subjectName });
     await GET_SUBJECTS();
   }, [GET_SUBJECTS]);
 
@@ -44,7 +56,7 @@ const Study = () => {
       return;
     }
     
-    await dispatchSubject.PUT_SUBJECT({
+    await dispatchSubject.PUT({
       subjectId,
       subjectName,
       timeRecord: targetSubject.timeRecord,
@@ -64,12 +76,10 @@ const Study = () => {
   }, []);
 
   const openEditModal = useCallback(({ id, children }) => {
-    console.log(`openEditModal() 에서 받은 id: ${id} 😱😱😱`);
-    
     dispatchModal({
       type: "EDIT",
       id,
-      label: children,
+      value: children,
     });
   }, []);
 
@@ -86,6 +96,11 @@ const Study = () => {
     console.log("Study - onSubmit() 결과");
     console.log(response);
   }, [PUT_SUBJECT, POST_SUBJECT]);
+
+  const onDelete = useCallback(async ({ id }) => {
+    await dispatchSubject.DELETE({ subjectId: id });
+    await GET_SUBJECTS();
+  }, [GET_SUBJECTS]);
 
   useEffect(() => {
     GET_SUBJECTS();
@@ -164,11 +179,11 @@ const Study = () => {
         />
       </div>
 
-      <ChocobeModal 
+      <ChocobeModal
         {...modalState}
-        value={modalState?.label}
-        onCancel={closeModal}
         onOk={onSubmit}
+        onCancel={closeModal}
+        onDelete={onDelete}
       />
     </div>
   );
