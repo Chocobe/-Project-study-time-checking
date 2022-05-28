@@ -9,7 +9,7 @@ import {
 
 import {
   MainStateContext,
-} from "@/context/MainContext"
+} from "@/context/MainContext/MainContext"
 
 
 import { itemTypes } from "@/components/RecordCategory/model";

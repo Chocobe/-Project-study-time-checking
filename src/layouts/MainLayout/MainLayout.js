@@ -12,11 +12,11 @@ import {
 import {
   MainStateContext,
   MainDispatchContext,
-} from "@/context/MainContext";
+} from "@/context/MainContext/MainContext";
 import ChocobeButton from "@/components/Button/ChocobeButton";
 
 import "./MainLayout.scss";
-import { DISPATCH_TYPE } from "@/context/mainReducer";
+import { DISPATCH_TYPE } from "@/context/MainContext/mainReducer";
 
 const MainLayout = () => {
   const state = useContext(MainStateContext);

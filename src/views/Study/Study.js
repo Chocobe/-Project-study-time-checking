@@ -9,8 +9,8 @@ import React, {
 
 import { useNavigate } from "react-router-dom";
 
-import { MainDispatchContext } from "@/context/MainContext";
-import { DISPATCH_TYPE } from "@/context/mainReducer";
+import { MainDispatchContext } from "@/context/MainContext/MainContext";
+import { DISPATCH_TYPE } from "@/context/MainContext/mainReducer";
 
 import { itemTypes } from "@/components/RecordCategory/model";
 import ChocobeRecorderCategory from "@/components/RecordCategory/ChocobeRecordCategory";

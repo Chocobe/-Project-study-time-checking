@@ -1,7 +1,7 @@
 import MainRouter from "@/router/router";
 import { BrowserRouter } from "react-router-dom";
 
-import MainContext from "@/context/MainContext";
+import MainContext from "@/context/MainContext/MainContext";
 
 import './App.scss';
 
