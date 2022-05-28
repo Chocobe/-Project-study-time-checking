@@ -3,10 +3,9 @@ const modalReducer = (prevState, actions) => {
     type,
     id,
     label,
-
-    // onOk,
-    // onCancel,
   } = actions;
+
+  console.log(`modalReducer 에서 받은 id: ${id}`);
 
   switch (type) {
     case "ADD": {
@@ -18,8 +17,6 @@ const modalReducer = (prevState, actions) => {
         okText: "등록",
         cancelText: "취소",
         okBgColor: "#03a9f4",
-        // onOk,
-        // onCancel,
       };
     }
 
@@ -35,8 +32,6 @@ const modalReducer = (prevState, actions) => {
 
         id,
         label,
-        // onOk,
-        // onCancel,
       }
     }
 
@@ -57,8 +52,6 @@ const modalReducer = (prevState, actions) => {
 
         id,
         label,
-        // onOk,
-        // onCancel,
       };
     }
 
