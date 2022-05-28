@@ -1,7 +1,7 @@
 import { tokenApi } from "./";
 
 export const subjectApi = {
-  URI: "/subject",
+  URI: "/subjects",
   
   GET() {
     return tokenApi.get(this.URI);
