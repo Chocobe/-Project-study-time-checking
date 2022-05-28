@@ -29,7 +29,7 @@ const ChocobeRecorderItem = ({
   return (
     <div 
       className={rootClassName}
-      onClick={() => onClickRoot({ id, label: children })}
+      onClick={() => onClickRoot({ id, children })}
     >
       <div className="ChocobeRecorderItem-controller">
         <button 
@@ -49,7 +49,7 @@ const ChocobeRecorderItem = ({
         </div>
 
         <div className="ChocobeRecorderItem-content-value">
-          {/* {value} */}
+          {value}
         </div>
       </div>
     </div>
