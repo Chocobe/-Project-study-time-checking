@@ -1,6 +1,7 @@
 import React, {
-  useCallback,
   useState,
+  useRef,
+  useCallback,
   useEffect,
   useReducer,
 } from "react";
@@ -12,69 +13,83 @@ import ChocobeModal from "@/components/Modal/ChocobeModal";
 
 import modalReducer from "./modalReducer";
 
-import { subjectApi } from "@/api/subject";
-
-import { mockRecordItems } from "./mockRecordItems";
+import { dispatchSubject } from "./dispatchSubject";
 
 import "./Study.scss";
 
 const Study = () => {
   const [modalState, dispatchModal] = useReducer(modalReducer);
+
+  const [subjects, setSubjects] = useState([]);
+  const subjectsRef = useRef();
+  subjectsRef.current = subjects;
+
+  const GET_SUBJECTS = useCallback(async () => {
+    await dispatchSubject.GET_SUBJECTS(setSubjects);
+  }, [setSubjects]);
+
+  const POST_SUBJECT = useCallback(async ({ subjectName }) => {
+    await dispatchSubject.POST_SUBJECT({ subjectName });
+    await GET_SUBJECTS();
+  }, [GET_SUBJECTS]);
+
+  const PUT_SUBJECT = useCallback(async ({
+    subjectId, subjectName,
+  }) => {
+    const targetSubject = subjectsRef.current
+      .find(item => item.subjectId === subjectId);
+
+    if (!targetSubject) {
+      console.warn(`[subjectId: ${subjectId}] 에 해당하는 데이터를 찾지 못하였습니다.`);
+      return;
+    }
+    
+    await dispatchSubject.PUT_SUBJECT({
+      subjectId,
+      subjectName,
+      timeRecord: targetSubject.timeRecord,
+    });
+
+    await GET_SUBJECTS();
+  }, [subjectsRef, GET_SUBJECTS]);
   
   const closeModal = useCallback(() => {
     dispatchModal({ type: "CANCEL" });
   }, []);
   
-  const openAddModal = useCallback(({ value }) => {
+  const openAddModal = useCallback(() => {
     dispatchModal({
       type: "ADD",
-      value,
-      // onCancel,
-      // onOk: ({ id, value }) => {
-      //   console.log(`onOk() 결과 - id: ${id}, value: ${value}`);
-      // },
     });
   }, []);
 
-  const openEditModal = useCallback(({ id, label }) => {
+  const openEditModal = useCallback(({ id, children }) => {
+    console.log(`openEditModal() 에서 받은 id: ${id} 😱😱😱`);
+    
     dispatchModal({
       type: "EDIT",
       id,
-      label,
+      label: children,
     });
   }, []);
 
-  // FIXME: API 연결하기
-  // FIXME: label => subjectName 으로 바꾸기
-  const onUpdate = useCallback(async ({ id, value: label }) => {
-    console.log("onUpdate() 호출");
-    console.log([id, label]);
+  const onSubmit = useCallback(async ({ id, value }) => {
+    console.log("onSubmit() 호출");
+    console.log([id, value]);
+    console.log(subjectsRef.current)
     
     // TODO: id ? "FETCH 요청" : "POST 요청";
     const response = id
-      ? console.log(`[${id} - ${label}] 수정`)
-      : await subjectApi.POST({ subjectName: label })
+      ? await PUT_SUBJECT({ subjectId: id, subjectName: value })
+      : await POST_SUBJECT({ subjectName: value });
 
-    console.log("response");
+    console.log("Study - onSubmit() 결과");
     console.log(response);
-      
-    // id
-    //   ? console.log(`[${id} - ${label}] 수정`)
-    //   : console.log(`[${label}] 등록`);
+  }, [PUT_SUBJECT, POST_SUBJECT]);
 
-    // const targetItem = mockRecordItems.find(item => item.id === id)
-    // if (targetItem) {
-    //   targetItem.label = label;
-    // } else {
-    //   // FIXME:  테스트 용 isPlay: true
-    //   mockRecordItems.push({
-    //     id: mockRecordItems.length,
-    //     label,
-    //     value: "00:00:00",
-    //     isPlay: true,
-    //   });
-    // }
-  }, []);
+  useEffect(() => {
+    GET_SUBJECTS();
+  }, [GET_SUBJECTS]);
 
   // FIXME: Mocking
   const [mockSrc, setMockSrc] = useState();
@@ -116,6 +131,19 @@ const Study = () => {
       </div>
 
       <div className="Study-items">
+        {
+          subjects.map(item => (
+            <ChocobeRecorderItem
+              id={item.subjectId}
+              value={item.timeRecord.studyTime}
+              key={item.subjectId}
+              onClickRoot={openEditModal}
+            >
+              {item.subjectName}
+            </ChocobeRecorderItem>
+          ))
+        }
+
         {/* {
           mockRecordItems.map(item => (
             <ChocobeRecorderItem
@@ -129,7 +157,6 @@ const Study = () => {
         } */}
       </div>
 
-      
       <div className="Study-actions">
         <button
           className="Study-actions-add"
@@ -138,10 +165,10 @@ const Study = () => {
       </div>
 
       <ChocobeModal 
-        {...modalState} 
+        {...modalState}
         value={modalState?.label}
         onCancel={closeModal}
-        onOk={onUpdate}
+        onOk={onSubmit}
       />
     </div>
   );
