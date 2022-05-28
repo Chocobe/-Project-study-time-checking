@@ -8,7 +8,7 @@ const config = {
   withCredentials: false,
 };
 
-const createAxiosInstance = config => {
+export const createAxiosInstance = (config, useToken = false) => {
   const instance = axios.create({
     ...config,
     
@@ -16,19 +16,25 @@ const createAxiosInstance = config => {
     // timeout: 2000,
 
     // FIXME: BE 연결 시, true 로 바꾸기
-    // withCredentials: false,
+    withCredentials: true,
   });
 
   instance.interceptors.request.use(
     config => {
-      const token = localStorage.getItem("token")
+      const lsData = JSON.parse(localStorage.getItem("study-with-ai") ?? {});
+      const token = lsData?.token;
+
+      console.log("interceptors 에서 token 확인");
+      console.log(token);
+
+      if (!useToken) return config;
 
       config.headers = {
         common: {
-          Authorization: token,
+          Authorization: `Bearer ${token}`,
         },
       };
-      
+
       return config;
     },
 
@@ -40,32 +46,33 @@ const createAxiosInstance = config => {
   return instance;
 }
 
-const api = createAxiosInstance(config);
-const publicApi = axios.create(config);
+// export const api = createAxiosInstance(config);
 
-export const commonApi = {
-  /**
-   * @param { string } email
-   * @param { string } password
-   */
-  async login(email, password) {
-    // FIXME: BE 연결 시, URL 바꾸기
-    return await publicApi.post("/posts", { params: {
-      email,
-      password,
-      // FIXME: BE 연결 시, token params 지우기
-      token: process.env.NODE_ENV === "development" 
-        ? "jwt token for development"
-        : "jwt token for production"
-    }});
-  },
-};
+// export const commonApi__ = {
+//   /**
+//    * @param { string } email
+//    * @param { string } password
+//    */
+//   async login(email, password) {
+//     // FIXME: BE 연결 시, URL 바꾸기
+//     return await publicApi.post("/posts", { params: {
+//       email,
+//       password,
+//       // FIXME: BE 연결 시, token params 지우기
+//       token: process.env.NODE_ENV === "development" 
+//         ? "jwt token for development"
+//         : "jwt token for production"
+//     }});
+//   },
+// };
 
-export const privateApi = {
-  async hello() {
-    return await api.get("/hello", { params: {
-      param1: "인자 1",
-      param2: "인자 2",
-    }});
-  },
-};
+export const tokenApi = createAxiosInstance(config, true);
+
+// export const privateApi__ = {
+//   async hello() {
+//     return await api.get("/hello", { params: {
+//       param1: "인자 1",
+//       param2: "인자 2",
+//     }});
+//   },
+// };
