@@ -23,6 +23,7 @@ const ChocobeRecorderItem = ({
   const onClickController = useCallback(e => {
     e.stopPropagation();
     // FIXME: Play || Pause 동작 추가하기
+    console.log(`${children} 과목 플래이`);
   }, []);
   
   return (

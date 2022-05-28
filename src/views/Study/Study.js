@@ -84,17 +84,9 @@ const Study = () => {
   }, []);
 
   const onSubmit = useCallback(async ({ id, value }) => {
-    console.log("onSubmit() 호출");
-    console.log([id, value]);
-    console.log(subjectsRef.current)
-    
-    // TODO: id ? "FETCH 요청" : "POST 요청";
-    const response = id
+    id
       ? await PUT_SUBJECT({ subjectId: id, subjectName: value })
       : await POST_SUBJECT({ subjectName: value });
-
-    console.log("Study - onSubmit() 결과");
-    console.log(response);
   }, [PUT_SUBJECT, POST_SUBJECT]);
 
   const onDelete = useCallback(async ({ id }) => {
@@ -158,18 +150,6 @@ const Study = () => {
             </ChocobeRecorderItem>
           ))
         }
-
-        {/* {
-          mockRecordItems.map(item => (
-            <ChocobeRecorderItem
-              {...item}
-              key={item.id}
-              onClickRoot={openEditModal}
-            >
-              {item.label}
-            </ChocobeRecorderItem>
-          ))
-        } */}
       </div>
 
       <div className="Study-actions">

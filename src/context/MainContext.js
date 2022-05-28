@@ -4,11 +4,9 @@ import React, {
 
 import { mainReducer } from "./mainReducer";
 
-// FIXME: types 파일로 분리하기
 /** @type { React.Context<{ email: string; password: string; token: string; }> } */
 export const MainStateContext = React.createContext();
 
-// FIXME: types 파일로 분리하기
 /**
  * @type { React.Context<{ 
  *  init: () => void;

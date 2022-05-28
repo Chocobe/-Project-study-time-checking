@@ -5,12 +5,8 @@ const modalReducer = (prevState, actions) => {
     value,
   } = actions;
 
-  console.log(`modalReducer 에서 받은 id: ${id}`);
-
   switch (type) {
     case "ADD": {
-      console.log("reducer - ADD() 호출");
-
       return {
         isOpen: true,
         title: "Subject 등록",
@@ -21,8 +17,6 @@ const modalReducer = (prevState, actions) => {
     }
 
     case "EDIT": {
-      console.log("reducer - EDIT() 호출");
-      
       return {
         isOpen: true,
         title: "Subject 수정",
@@ -37,8 +31,6 @@ const modalReducer = (prevState, actions) => {
     }
 
     case "DELETE": {
-      console.log("reducer - DELETE() 호출");
-
       return {
         isOpen: true,
         title: "Subject 삭제",
@@ -65,7 +57,7 @@ const modalReducer = (prevState, actions) => {
     }
 
     default: {
-      console.log(`제공되지 않는 ${type} 입니다.`);
+      console.warn(`제공되지 않는 ${type} 입니다.`);
     }
   }
 }

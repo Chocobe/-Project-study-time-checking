@@ -8,7 +8,6 @@ export const subjectApi = {
   },
 
   POST({ subjectName }) {
-    console.log(`subjectApi 에서 받은 post subjectName: ${subjectName}`);
     return tokenApi.post(this.URI, { subjectName });
   },
 

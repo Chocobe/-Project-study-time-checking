@@ -11,8 +11,6 @@ export const dispatchSubject = {
       console.warn(e.message);
 
       return false;
-    } finally {
-      console.log("dispatchSubject - GET_SUBJECTS() 완료");
     }
   },
 
@@ -22,8 +20,6 @@ export const dispatchSubject = {
       return response?.data;
     } catch (e) {
       console.warn(e.message);
-    } finally {
-      console.log("dispatchSubject - POST_SUBJECT() 완료");
     }
   },
 
@@ -38,8 +34,6 @@ export const dispatchSubject = {
       return response?.data;
     } catch (e) {
       console.warn(e?.message);
-    } finally {
-      console.log("dispatchSubject - PUT_SUBJECT() 완료");
     }
   },
 
@@ -50,8 +44,6 @@ export const dispatchSubject = {
       return response?.data;
     } catch (e) {
       console.warn(e?.message);
-    } finally {
-      console.log("dispatchSubject - DELETE() 완료");
     }
   }
 };
