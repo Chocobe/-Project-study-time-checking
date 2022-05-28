@@ -39,7 +39,7 @@ const ChocobeModal = ({
   const onClickDelete = useCallback(() => {
     onDelete?.({ id });
     onCancel?.();
-  }, [id, onDelete]);
+  }, [id, onDelete, onCancel]);
 
   const init = useCallback(() => {
     setCurValue(value);

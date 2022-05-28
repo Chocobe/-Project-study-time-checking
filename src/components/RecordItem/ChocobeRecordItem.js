@@ -3,9 +3,9 @@ import React, {
   useCallback,
 } from "react";
 
-import "./ChocobeRecorderItem.scss";
+import "./ChocobeRecordItem.scss";
 
-const ChocobeRecorderItem = ({
+const ChocobeRecordItem = ({
   id,
   value,
   isPlay,
@@ -24,7 +24,7 @@ const ChocobeRecorderItem = ({
     e.stopPropagation();
     // FIXME: Play || Pause 동작 추가하기
     console.log(`${children} 과목 플래이`);
-  }, []);
+  }, [children]);
   
   return (
     <div 
@@ -56,4 +56,4 @@ const ChocobeRecorderItem = ({
   )
 };
 
-export default React.memo(ChocobeRecorderItem);
+export default React.memo(ChocobeRecordItem);

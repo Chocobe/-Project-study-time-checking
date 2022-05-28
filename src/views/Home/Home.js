@@ -12,8 +12,8 @@ import {
 } from "@/context/MainContext"
 
 
-import { itemTypes } from "@/components/RecorderCategory/model";
-import ChocobeRecorderCategory from "@/components/RecorderCategory/ChocobeRecorderCategory";
+import { itemTypes } from "@/components/RecordCategory/model";
+import ChocobeRecordCategory from "@/components/RecordCategory/ChocobeRecordCategory";
 
 import "./Home.scss";
 
@@ -31,7 +31,7 @@ const Home = () => {
         {
           Object.values(itemTypes).map(type => (
             <div className="Home-description-item" key={type}>
-              <ChocobeRecorderCategory type={type} />
+              <ChocobeRecordCategory type={type} />
             </div>
           ))
         }

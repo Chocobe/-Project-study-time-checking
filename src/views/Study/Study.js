@@ -10,10 +10,11 @@ import React, {
 import { useNavigate } from "react-router-dom";
 
 import { MainDispatchContext } from "@/context/MainContext";
+import { DISPATCH_TYPE } from "@/context/mainReducer";
 
-import { itemTypes } from "@/components/RecorderCategory/model";
-import ChocobeRecorderCategory from "@/components/RecorderCategory/ChocobeRecorderCategory";
-import ChocobeRecorderItem from "@/components/RecorderItem/ChocobeRecorderItem";
+import { itemTypes } from "@/components/RecordCategory/model";
+import ChocobeRecorderCategory from "@/components/RecordCategory/ChocobeRecordCategory";
+import ChocobeRecordItem from "@/components/RecordItem/ChocobeRecordItem";
 import ChocobeModal from "@/components/Modal/ChocobeModal";
 
 import modalReducer from "./modalReducer";
@@ -36,7 +37,7 @@ const Study = () => {
 
     if (isSuccess) return;
 
-    dispatchContext.logout();
+    dispatchContext({ type: DISPATCH_TYPE.LOGOUT });
     navigator("/");
   }, [setSubjects, dispatchContext, navigator]);
 
@@ -140,14 +141,14 @@ const Study = () => {
       <div className="Study-items">
         {
           subjects.map(item => (
-            <ChocobeRecorderItem
+            <ChocobeRecordItem
               id={item.subjectId}
               value={item.timeRecord.studyTime}
               key={item.subjectId}
               onClickRoot={openEditModal}
             >
               {item.subjectName}
-            </ChocobeRecorderItem>
+            </ChocobeRecordItem>
           ))
         }
       </div>

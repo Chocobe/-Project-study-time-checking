@@ -8,7 +8,7 @@ import {
 
 import ChocobeLabeledImage from "@/components/LabeledImage/ChocobeLabeledImage";
 
-const ChocobeRecorderItem = ({
+const ChocobeRecordItem = ({
   type, alt, children
 }) => {
   const item = useMemo(() => {
@@ -30,4 +30,4 @@ const ChocobeRecorderItem = ({
   );
 };
 
-export default React.memo(ChocobeRecorderItem);
+export default React.memo(ChocobeRecordItem);
