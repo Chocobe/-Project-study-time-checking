@@ -12,6 +12,8 @@ import ChocobeModal from "@/components/Modal/ChocobeModal";
 
 import modalReducer from "./modalReducer";
 
+import { subjectApi } from "@/api/subject";
+
 import { mockRecordItems } from "./mockRecordItems";
 
 import "./Study.scss";
@@ -43,24 +45,35 @@ const Study = () => {
   }, []);
 
   // FIXME: API 연결하기
-  const onUpdate = useCallback(({ id, value: label }) => {
+  // FIXME: label => subjectName 으로 바꾸기
+  const onUpdate = useCallback(async ({ id, value: label }) => {
+    console.log("onUpdate() 호출");
+    console.log([id, label]);
+    
     // TODO: id ? "FETCH 요청" : "POST 요청";
-    id
+    const response = id
       ? console.log(`[${id} - ${label}] 수정`)
-      : console.log(`[${label}] 등록`);
+      : await subjectApi.POST({ subjectName: label })
 
-    const targetItem = mockRecordItems.find(item => item.id === id)
-    if (targetItem) {
-      targetItem.label = label;
-    } else {
-      // FIXME:  테스트 용 isPlay: true
-      mockRecordItems.push({
-        id: mockRecordItems.length,
-        label,
-        value: "00:00:00",
-        isPlay: true,
-      });
-    }
+    console.log("response");
+    console.log(response);
+      
+    // id
+    //   ? console.log(`[${id} - ${label}] 수정`)
+    //   : console.log(`[${label}] 등록`);
+
+    // const targetItem = mockRecordItems.find(item => item.id === id)
+    // if (targetItem) {
+    //   targetItem.label = label;
+    // } else {
+    //   // FIXME:  테스트 용 isPlay: true
+    //   mockRecordItems.push({
+    //     id: mockRecordItems.length,
+    //     label,
+    //     value: "00:00:00",
+    //     isPlay: true,
+    //   });
+    // }
   }, []);
 
   // FIXME: Mocking
@@ -103,7 +116,7 @@ const Study = () => {
       </div>
 
       <div className="Study-items">
-        {
+        {/* {
           mockRecordItems.map(item => (
             <ChocobeRecorderItem
               {...item}
@@ -113,7 +126,7 @@ const Study = () => {
               {item.label}
             </ChocobeRecorderItem>
           ))
-        }
+        } */}
       </div>
 
       
