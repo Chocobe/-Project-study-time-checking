@@ -83,7 +83,7 @@ const Study = () => {
 
   const openEditModal = useCallback(item => {
     const { subjectId, subjectName } = item;
-    
+
     dispatchModal({
       type: "EDIT",
       id: subjectId,
