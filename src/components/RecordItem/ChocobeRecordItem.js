@@ -17,7 +17,17 @@ const ChocobeRecordItem = ({
 }) => {
   const dispatch = useContext(RecorderDispatchContext);
 
-  const studyTime = useMemo(() => item.timeRecord?.studyTime, [item]);
+  // const [study, setStudy] = useState();
+  // const [phone, setPhone] = useState();
+  // const [empty, setEmpty] = useState();
+
+  // const studyRef = useRef();
+  // const phoneRef = useRef();
+  // const emptyRef = useRef();
+
+  // studyRef.current = study;
+  // phoneRef.current = phone;
+  // emptyRef.current = empty;
 
   const rootClassName = useMemo(() => {
     const buttonRootClass = "ChocobeRecorderItem";
@@ -33,14 +43,12 @@ const ChocobeRecordItem = ({
 
   const onClickController = useCallback(e => {
     e.stopPropagation();
-    // FIXME: Play || Pause 동작 추가하기
-    console.log(item);
 
-    const type = isPlay
-      ? DISPATCH_TYPE.PAUSE
-      : DISPATCH_TYPE.START;
-
-    dispatch({ type, item });
+    if (!isPlay) {
+      dispatch({ type: DISPATCH_TYPE.START, item });
+    } else {
+      dispatch({ type: DISPATCH_TYPE.PAUSE });
+    }
   }, [item, isPlay, dispatch]);
   
   return (
@@ -66,8 +74,7 @@ const ChocobeRecordItem = ({
         </div>
 
         <div className="ChocobeRecorderItem-content-value">
-          {/* {value} */}
-          {studyTime}
+          {item.studyTime}
         </div>
       </div>
     </div>

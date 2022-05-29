@@ -12,6 +12,12 @@ export const RecorderStateContext = React.createContext({
     phoneTime: undefined,
     emptyTime: undefined,
   },
+  recording: {
+    start: undefined,
+    study: 0,
+    phone: 0,
+    empty: 0,
+  },
 });
 export const RecorderDispatchContext = React.createContext();
 

@@ -16,11 +16,15 @@ const routes = [
     element: <MainLayout />,
     children: [
       {
+        // FIXME: 테스트 후, 주석 사용하기
         path: "",
+        // path: "/study",
         element: <Home />
       },
       {
+        // FIXME: 테스트 후, 주석 사용하기
         path: "study",
+        // path: "",
         element: <Study />,
       },
     ],

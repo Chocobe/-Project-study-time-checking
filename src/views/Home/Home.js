@@ -12,7 +12,7 @@ import {
 } from "@/context/MainContext/MainContext"
 
 
-import { itemTypes } from "@/components/RecordCategory/model";
+import { ITEM_TYPE } from "@/components/RecordCategory/model";
 import ChocobeRecordCategory from "@/components/RecordCategory/ChocobeRecordCategory";
 
 import "./Home.scss";
@@ -29,7 +29,7 @@ const Home = () => {
     <div className="Home">
       <div className="Home-description">
         {
-          Object.values(itemTypes).map(type => (
+          Object.values(ITEM_TYPE).map(type => (
             <div className="Home-description-item" key={type}>
               <ChocobeRecordCategory type={type} />
             </div>

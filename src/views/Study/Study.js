@@ -37,9 +37,12 @@ const Study = () => {
   const GET_SUBJECTS = useCallback(async () => {
     const isSuccess = await dispatchSubject.GET(setSubjects);
 
+    console.log(`isSuccess: ${isSuccess}`);
+
     if (isSuccess) return;
 
     dispatchContext({ type: DISPATCH_TYPE.LOGOUT });
+
     navigator("/");
   }, [setSubjects, dispatchContext, navigator]);
 
